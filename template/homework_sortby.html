@@ -119,16 +119,19 @@
     <thead>
       <tr>
         <th>品名</th>
-        <th class="click">價格 
+        <th class="click" @click="nowSelect='price';isReverse=!isReverse">價格 
           <!-- isReverse 為反轉 className -->
-          <span class="icon isReverse">
+          <span class="icon isReverse" :class="{'inverse':!isReverse}" v-if="nowSelect=='price'">
             <i class=" fas fa-angle-up text-success"></i>
           </span>
         </th>
-        <th class="click">到期日 
+        <th class="click" @click="nowSelect='expiryDate';isReverse=!isReverse">到期日 
+          <span class="icon isReverse" :class="{'inverse':!isReverse}" v-if="nowSelect=='expiryDate'">
+            <i class=" fas fa-angle-up text-success"></i>
+          </span>
         </th>
       </tr>
-      <tr v-for="item in data">
+      <tr v-for="item in sortData">
         <td>{{ item.name }}</td>
         <td>{{ item.price }}</td>
         <td>{{ item.expiryDate }}</td>
@@ -180,9 +183,25 @@ var app = new Vue({
         expiryDate: 200
       }
     ],
+    isReverse:true,
+    nowSelect:'',
+
   },
   // 請在此撰寫 JavaScript
-  computed: {}
+  computed: {
+    sortData:function(){
+      if(this.nowSelect=='') return this.data
+      return this.data.sort((a,b)=>{
+        a=a[this.nowSelect];
+        b=b[this.nowSelect];
+        if(this.isReverse){
+          return a-b;
+        }else{
+          return b-a;
+        }
+      })
+    }
+  }
 });
 </script>
 
