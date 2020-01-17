@@ -92,7 +92,7 @@
 </div>
           </div>
         
-        <div class="col-md-9 post">      
+        <div  class="col-md-9 post">      
           <!-- 練習開始 -->
           <h1 class="mt-0 text-muted">Template String 樣板字串</h1>
           
@@ -100,8 +100,9 @@
   <ol class="mb-0">
     <li>請跟隨課程完成此章節。</li>
   </ol>
-</div>
 
+</div>
+<div id="app"></div>
 
 <script>
 // #1 樣板字串
@@ -128,7 +129,21 @@ let originUl = '<ul>\
 </ul>';
 
 console.log(originString, originUl);
-
+let newString=`我叫做 ${people[0].name}`
+let newUl=`
+<ul>
+  <li>我叫做${people[0].name}'</li>
+  <li>我叫做${people[1].name}'</li>
+  <li>我叫做${people[2].name}'</li>
+  </ul>
+`
+newUl=`
+<ul>
+${people.map(person=>` <li>我叫做${person.name}'</li>`).join('')}
+</ul>
+`
+console.log(newString,newUl);
+$('#app').html(newUl)
 </script> 
         </div>
       </div>
